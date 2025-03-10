@@ -8,9 +8,14 @@ passport.use(
       console.log("Received credentials: ", username, password);
       const user = await Person.findOne({ username: username });
       if (!user) {
+        console.log("User not found in database");
         return done(null, false, { message: "Incorrect username." });
       }
-      const isPasswordMatch = user.password === password ? true : false;
+      console.log("User found:",user);
+
+      console.log("Entered Password: ", password);
+      console.log('Stored hashed password: ',user.password);
+      const isPasswordMatch = await user.comparePassword(password);
       if (isPasswordMatch) {
         return done(null, user);
       } else {

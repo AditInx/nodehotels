@@ -20,8 +20,8 @@ app.get("/",function (req, res) {res.send("Hello World")});
 import menuRoutes from './routes/menuRoutes.js';
 import personRoutes from './routes/personRoutes.js';
 
-app.use("/menu",localAuthMiddleware,menuRoutes);
-app.use("/person" , personRoutes);
+app.use("/menu",menuRoutes);
+app.use("/person",localAuthMiddleware , personRoutes);
 
 app.listen(3000, () => {
   console.log(`listening on port ${PORT}`);
